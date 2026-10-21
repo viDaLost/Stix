@@ -67,3 +67,13 @@ button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-c
   .poem-pages { margin-top: 5px; }
   .controls { bottom: max(8px, env(safe-area-inset-bottom)); }
 }
+
+/* Quiet reading controls: arrows, independent autoplay, and remaining reading time. */
+.poem { touch-action: pan-y; }
+.poem-pages [data-verse] { width: 32px; }
+.poem-pages svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
+.poem-pages button:disabled { opacity: .22; cursor: default; }
+#poem-auto { margin-left: 8px; color: #b07888; }
+.poem-progress { width: 96px; height: 2px; margin: 0 auto; border-radius: 2px; background: #c9aaa025; overflow: hidden; }
+.poem-progress span { display: block; width: 100%; height: 100%; background: #bd8392; transform: scaleX(0); transform-origin: left center; }
+.poem[data-auto="false"] .poem-progress { opacity: .35; }

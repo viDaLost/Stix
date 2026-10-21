@@ -7,7 +7,7 @@
   <meta name="description" content="Одно маленькое сердце, дерево любви и стихотворение «Тебя найду я в тишине иллюзий».">
   <title>Из одного сердца</title>
   <link rel="icon" href="./assets/heart.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/tree.css?v=2.1.0">
+  <link rel="stylesheet" href="./assets/tree.css?v=2.2.0">
 </head>
 <body>
   <main id="card" class="card" tabindex="-1" aria-label="Из одного сердца — живая открытка">
@@ -41,11 +41,15 @@
           <p>Чтоб разделить с тобой весну.</p>
         </article>
       </div>
-      <nav class="poem-pages" aria-label="Выбрать строфу">
+      <nav class="poem-pages" aria-label="Управление стихотворением">
+        <button id="poem-prev" type="button" aria-label="Предыдущая строфа" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
         <button type="button" data-verse="0" aria-label="Первая строфа" aria-pressed="true"><span aria-hidden="true"></span></button>
         <button type="button" data-verse="1" aria-label="Вторая строфа" aria-pressed="false"><span aria-hidden="true"></span></button>
         <button type="button" data-verse="2" aria-label="Третья строфа" aria-pressed="false"><span aria-hidden="true"></span></button>
+        <button id="poem-next" type="button" aria-label="Следующая строфа"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+        <button id="poem-auto" type="button" aria-label="Приостановить автопрокрутку стиха" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="poem-auto-icon" d="M9 6v12M15 6v12"/></svg></button>
       </nav>
+      <div class="poem-progress" aria-hidden="true"><span id="poem-progress"></span></div>
     </section>
     <div id="controls" class="controls" hidden>
       <button id="pause" type="button" aria-label="Приостановить анимацию" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="pause-icon" d="M9 6v12M15 6v12"/></svg></button>
@@ -54,6 +58,6 @@
     <p id="status" class="sr-only" role="status" aria-live="polite">Нажмите на сердце, чтобы вырастить дерево с розовыми и красными листьями-сердечками.</p>
     <noscript><p class="no-script">Чтобы сердце превратилось в дерево, включите JavaScript.</p></noscript>
   </main>
-  <script type="module" src="./assets/tree-app.js?v=2.1.0"></script>
+  <script type="module" src="./assets/tree-app.js?v=2.2.0"></script>
 </body>
 </html>

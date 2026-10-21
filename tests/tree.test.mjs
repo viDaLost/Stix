@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createFall,FALL,GROW_AT,MATURE_AT,createTree,pointOn,branchProgress,insidePolygon,driftingLeaf,layout } from '../assets/tree-model.js';
-import { poemAt,VERSE_STARTS,LINE_INTERVAL,LINE_FADE } from '../assets/postcard-poem.js';
+import { poemAt,VERSE_STARTS,LINE_INTERVAL,LINE_FADE,createPoemPlayer,POEM_END } from '../assets/postcard-poem.js';
 
 const tree=createTree();
 test('heart accelerates, passes through the ground and slows in the soil without bouncing',()=>{
@@ -63,10 +63,28 @@ test('all three stanzas receive uninterrupted reading time and the final verse r
   for(let i=0;i<3;i++){
     const full=VERSE_STARTS[i]+LINE_INTERVAL*3+LINE_FADE+.001;
     assert.deepEqual(poemAt(full).lines,[1,1,1,1]);
-    assert.deepEqual(poemAt(full+9).lines,[1,1,1,1]);
+    assert.deepEqual(poemAt(full+17).lines,[1,1,1,1]);
   }
   assert.equal(poemAt(300).index,2);
   assert.deepEqual(poemAt(300).lines,[1,1,1,1]);
   const selected=poemAt(300,{index:0,at:12});
   assert.equal(selected.index,0);assert.deepEqual(selected.lines,[1,1,1,1]);
+});
+
+
+test('poem autoplay pauses independently, resumes the same verse and can restart after the end',()=>{
+  const player=createPoemPlayer();player.tick(20);
+  assert.equal(player.read(20).index,0);assert.equal(player.read(20).automatic,true);
+  player.toggle(20);player.tick(60);
+  assert.equal(player.read(80).index,0);assert.equal(player.read(80).automatic,false);
+  assert.deepEqual(player.read(80).lines,[1,1,1,1]);
+  player.toggle(80);player.tick(13);
+  assert.equal(player.read(93).index,1);
+  player.select(2,93,true);player.tick(100);
+  assert.equal(player.read(193).index,2);assert.equal(player.read(193).automatic,false);
+  player.toggle(193);player.tick(POEM_END);
+  assert.equal(player.read(300).ended,true);assert.equal(player.read(300).automatic,false);
+  player.toggle(300);player.tick(8);
+  assert.equal(player.read(308).index,0);assert.equal(player.read(308).automatic,true);
+  assert.deepEqual(player.read(308).lines,[1,1,1,1]);
 });

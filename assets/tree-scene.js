@@ -1,4 +1,4 @@
-import { clamp,mix,ease,HEART_PATH,COLORS,FALL,GROW_AT,MATURE_AT,createFall,createTree,pointOn,branchProgress,layout,driftingLeaf,leafLandingTime } from './tree-model.js?v=2.1.0';
+import { clamp,mix,ease,HEART_PATH,COLORS,FALL,GROW_AT,MATURE_AT,createFall,createTree,pointOn,branchProgress,layout,driftingLeaf,leafLandingTime } from './tree-model.js?v=2.2.0';
 
 const BUFFER={width:600,height:740,x:300,y:704},SPRITE=32,PERIOD=44,FALL_COUNT=26;
 export function createScene(canvas){
@@ -86,7 +86,7 @@ export function createScene(canvas){
   function paintWood(growth){
     clearBuffer(wc,wood);
     const root=ease(growth/.9);wc.save();wc.scale(root,root);wc.fillStyle='#79563f';
-    wc.beginPath();wc.moveTo(-15,-2);wc.bezierCurveTo(-14,-13,14,-13,15,-2);wc.quadraticCurveTo(24,0,30,0);wc.quadraticCurveTo(10,2,0,0);wc.quadraticCurveTo(-22,3,-30,0);wc.closePath();wc.fill();wc.restore();
+    wc.beginPath();wc.moveTo(-24,-2);wc.bezierCurveTo(-23,-17,23,-17,24,-2);wc.quadraticCurveTo(34,0,43,0);wc.quadraticCurveTo(14,3,0,0);wc.quadraticCurveTo(-31,4,-43,0);wc.closePath();wc.fill();wc.restore();
     let complete=true;
     for(const b of tree.branches){
       const p=branchProgress(b,growth);if(p<1)complete=false;if(p<=0)continue;

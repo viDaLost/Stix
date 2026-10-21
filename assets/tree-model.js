@@ -52,9 +52,10 @@ export function createTree(seed=2811){
     if(parent!==null){b=contain(b);c=contain(c);d=contain(d);}
     const branch={id:branches.length,a,b,c,d,width,tip,born,duration,parent,attach};branches.push(branch);return branch;
   };
-  const trunk=add({x:0,y:0},{x:14,y:-76},{x:-19,y:-171},{x:0,y:-249},31,12,0,3.35);
-  const left=add({...trunk.d},{x:-35,y:-305},{x:-134,y:-315},{x:-157,y:-414},12,1.6,trunk.duration,3.4,0,1);
-  const right=add({...trunk.d},{x:38,y:-297},{x:137,y:-330},{x:159,y:-416},12,1.6,trunk.duration,3.55,0,1);
+  const trunk=add({x:0,y:0},{x:11,y:-81},{x:-16,y:-174},{x:4,y:-249},48,18,0,3.35);
+  const leftAttach=.94,leftStart=pointOn(trunk,leftAttach);
+  const left=add(leftStart,{x:leftStart.x+2,y:leftStart.y-64},{x:-127,y:-359},{x:-158,y:-421},14.4,1.5,inverseEase(leftAttach)*trunk.duration,3.55,0,leftAttach);
+  const right=add({...trunk.d},{x:16,y:-309},{x:121,y:-350},{x:154,y:-407},12.6,1.35,trunk.duration,3.75,0,1);
   const specs=[
     [left,.4,-192,-415,6.4],[left,.62,-104,-478,6],[left,.82,-39,-444,4.5],
     [right,.38,196,-415,6.5],[right,.6,106,-482,6],[right,.8,35,-444,4.6]
@@ -71,11 +72,11 @@ export function createTree(seed=2811){
     for(let i=0;i<slots.length;i++){
       const attach=slots[i],a=pointOn(parent,attach),next=pointOn(parent,Math.min(1,attach+.02));
       const heading=Math.atan2(next.y-a.y,next.x-a.x),side=i%2?1:-1;
-      const angle=heading+side*(.4+rng()*.6),length=(depth===2?47:25)*(.65+rng()*.6);
+      const angle=clamp(heading+side*(.35+rng()*.48),-Math.PI+.16,-.16),length=(depth===2?45:24)*(.7+rng()*.55);
       const d=contain({x:a.x+Math.cos(angle)*length,y:a.y+Math.sin(angle)*length});
-      const b=contain({x:mix(a.x,d.x,.3),y:mix(a.y,d.y,.3)-5});
-      const c=contain({x:mix(a.x,d.x,.75),y:mix(a.y,d.y,.75)-4});
-      const width=mix(parent.width,parent.tip,attach)*.62;
+      const b=contain({x:a.x+Math.cos(heading)*length*.3,y:a.y+Math.sin(heading)*length*.3});
+      const c=contain({x:d.x-Math.cos(angle+side*.12)*length*.28,y:d.y-Math.sin(angle+side*.12)*length*.28});
+      const width=mix(parent.width,parent.tip,attach)*(.55+rng()*.08);
       const child=add(a,b,c,d,width,Math.min(.35,width*.24),parent.born+inverseEase(attach)*parent.duration,1.1+rng()*.45,parent.id,attach);
       ramify(child,depth-1);
     }
@@ -110,7 +111,7 @@ export function createTree(seed=2811){
 
 export function layout(width,height,time=Infinity){
   const wide=width/height>1.2,p=ease((time-COMPOSE_AT)/COMPOSE_DURATION);
-  const finalX=wide?width*.285:width*.5,finalGround=height*(wide?.82:.54);
+  const finalX=wide?width*.285:width*.5,finalGround=height*(wide?.855:.575);
   const scale=Math.max(.08,Math.min((wide?width*.43:width-38)/500,height*(wide?.75:.49)/700,1.25));
   return{width,height,wide,scale,compose:p,x:mix(width*.5,finalX,p),ground:mix(height*.79,finalGround,p),
     groundWidth:mix(width*.84,wide?width*.48:width*.82,p)};
