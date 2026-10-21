@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createFall,FALL,GROW_AT,MATURE_AT,createTree,pointOn,branchProgress,insidePolygon,driftingLeaf,layout } from '../assets/tree-model.js';
+import { createFall,FALL,GROW_AT,MATURE_AT,createTree,pointOn,branchProgress,insidePolygon,driftingLeaf,layout,COMPOSE_AT } from '../assets/tree-model.js';
 import { poemAt,VERSE_STARTS,LINE_INTERVAL,LINE_FADE,createPoemPlayer,POEM_END } from '../assets/postcard-poem.js';
 
 const tree=createTree();
@@ -14,7 +14,7 @@ test('heart accelerates, passes through the ground and slows in the soil without
   assert.ok(Math.abs(fall.at(fall.impact-.00001).velocity-fall.at(fall.impact+.00001).velocity)<.2);
   assert.ok(Math.abs(fall.at(5).y-320)<1e-7);
   assert.ok(fall.at(5).buried);
-  assert.ok(GROW_AT>FALL.duration);
+  assert.ok(Math.abs(GROW_AT-FALL.impact)<1e-9,'growth begins at first contact with the ground');
 });
 
 test('curved branches remain connected as the smoother growth reaches each fork',()=>{
@@ -54,7 +54,7 @@ test('responsive composition leaves a clear reading area on phones, tablets and 
     assert.ok(b.ground-700*b.scale>=0&&b.ground<h);
     if(b.wide)assert.ok(b.x+250*b.scale<w*.52);
     else assert.ok(b.ground<h*.62);
-    const before=layout(w,h,3.19999),after=layout(w,h,3.20001);
+    const before=layout(w,h,COMPOSE_AT-.00001),after=layout(w,h,COMPOSE_AT+.00001);
     assert.ok(Math.abs(before.x-after.x)+Math.abs(before.ground-after.ground)<1e-6);
   }
 });
@@ -87,4 +87,14 @@ test('poem autoplay pauses independently, resumes the same verse and can restart
   player.toggle(300);player.tick(8);
   assert.equal(player.read(308).index,0);assert.equal(player.read(308).automatic,true);
   assert.deepEqual(player.read(308).lines,[1,1,1,1]);
+});
+
+
+test('the trunk rises immediately on impact and the complete tree blooms within four seconds',()=>{
+  const trunk=tree.branches[0];
+  assert.ok(branchProgress(trunk,.25)>.2,'the trunk is already rising a quarter second after impact');
+  assert.ok(trunk.duration<.8);
+  assert.ok(Math.max(...tree.branches.map(b=>b.born+b.duration))<2.6);
+  assert.ok(GROW_AT+tree.maxBloom<4.5);
+  assert.ok(tree.leaves.every(l=>l.duration<1.1));
 });

@@ -1,6 +1,6 @@
 {
   "name": "stix-heart-tree",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "type": "module",
   "description": "An interactive postcard: one falling heart grows into a living tree of hearts.",

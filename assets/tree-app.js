@@ -1,6 +1,6 @@
-import { createScene } from './tree-scene.js?v=2.2.0';
-import { MATURE_AT } from './tree-model.js?v=2.2.0';
-import { createPoemPlayer } from './postcard-poem.js?v=2.2.0';
+import { createScene } from './tree-scene.js?v=2.3.0';
+import { MATURE_AT } from './tree-model.js?v=2.3.0';
+import { createPoemPlayer } from './postcard-poem.js?v=2.3.0';
 
 const card=document.querySelector('#card'),canvas=document.querySelector('#garden'),seed=document.querySelector('#seed');
 const controls=document.querySelector('#controls'),pauseButton=document.querySelector('#pause'),replayButton=document.querySelector('#replay');

@@ -1,4 +1,4 @@
-import { clamp,ease } from './tree-model.js?v=2.2.0';
+import { clamp,ease } from './tree-model.js?v=2.3.0';
 export const VERSE_DURATION=25.4;
 export const VERSE_STARTS=Object.freeze([6.2,31.6,57]);
 export const LINE_INTERVAL=1.45,LINE_FADE=1.35;

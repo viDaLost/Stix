@@ -1,6 +1,6 @@
-import { clamp,mix,ease,HEART_PATH,COLORS,FALL,GROW_AT,MATURE_AT,createFall,createTree,pointOn,branchProgress,layout,driftingLeaf,leafLandingTime } from './tree-model.js?v=2.2.0';
+import { clamp,mix,ease,HEART_PATH,COLORS,FALL,GROW_AT,MATURE_AT,LEAF_FALL_PERIOD,LEAF_FALL_COUNT,createFall,createTree,pointOn,branchProgress,layout,driftingLeaf,leafLandingTime } from './tree-model.js?v=2.3.0';
 
-const BUFFER={width:600,height:740,x:300,y:704},SPRITE=32,PERIOD=44,FALL_COUNT=26;
+const BUFFER={width:600,height:740,x:300,y:704},SPRITE=32,PERIOD=LEAF_FALL_PERIOD,FALL_COUNT=LEAF_FALL_COUNT;
 export function createScene(canvas){
   const ctx=canvas.getContext('2d',{alpha:true});
   if(!ctx)throw new Error('Canvas is unavailable');
@@ -85,7 +85,7 @@ export function createScene(canvas){
   function clearBuffer(c,buffer){c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,buffer.width,buffer.height);c.setTransform(cacheRatio,0,0,cacheRatio,BUFFER.x*cacheRatio,BUFFER.y*cacheRatio);}
   function paintWood(growth){
     clearBuffer(wc,wood);
-    const root=ease(growth/.9);wc.save();wc.scale(root,root);wc.fillStyle='#79563f';
+    const root=ease(growth/.22);wc.save();wc.scale(root,root);wc.fillStyle='#79563f';
     wc.beginPath();wc.moveTo(-24,-2);wc.bezierCurveTo(-23,-17,23,-17,24,-2);wc.quadraticCurveTo(34,0,43,0);wc.quadraticCurveTo(14,3,0,0);wc.quadraticCurveTo(-31,4,-43,0);wc.closePath();wc.fill();wc.restore();
     let complete=true;
     for(const b of tree.branches){
@@ -139,16 +139,17 @@ export function createScene(canvas){
     const shade=ctx.createRadialGradient(0,0,0,0,0,70);shade.addColorStop(0,'#79543b19');shade.addColorStop(1,'#79543b00');ctx.globalAlpha=p;ctx.fillStyle=shade;ctx.beginPath();ctx.arc(0,0,70,0,Math.PI*2);ctx.fill();ctx.restore();
   }
   function fallingSeed(box,t){
-    const state=seedFall.at(t),y=height*.5+state.y;
+    const state=seedFall.at(t),distance=Math.max(12,height*.29-seedSize*.85);
+    const y=state.entered?box.ground-seedSize*.85+state.y-distance:height*.5+state.y;
     // The soil masks the heart at its original size: it really passes below the line.
     ctx.save();ctx.beginPath();ctx.rect(0,0,width,box.ground);ctx.clip();
-    ctx.translate(width*.5,y);ctx.rotate(Math.sin(t*2.4)*.04);ctx.scale(seedSize,seedSize);
+    ctx.translate(state.entered?box.x:width*.5,y);ctx.rotate(Math.sin(t*2.4)*.04);ctx.scale(seedSize,seedSize);
     const g=ctx.createLinearGradient(-1,-1,1,1);g.addColorStop(0,'#ed657b');g.addColorStop(.46,'#d83b5b');g.addColorStop(1,'#ae2345');ctx.fillStyle=g;ctx.fill(heart);ctx.restore();
   }
   function render(t,{still=false}={}){
     ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);if(t<0)return;
     const box=layout(width,height,t),growth=t-GROW_AT;ground(box,t);
-    if(t<GROW_AT)fallingSeed(box,t);
+    if(t<seedFall.duration)fallingSeed(box,t);
     if(growth<0)return;
     if(!finishedWood)paintWood(growth);
     if(!finishedCrown)paintCrown(growth);

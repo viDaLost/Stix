@@ -19,9 +19,11 @@ export function createFall(distance=1,gravity=5.6,soilDepth=distance*.32){
   return{impact,duration,at};
 }
 export const FALL=createFall();
-export const GROW_AT=1.8;
-export const MATURE_AT=GROW_AT+14;
-export const COMPOSE_AT=3.2,COMPOSE_DURATION=5.4;
+export const GROW_AT=FALL.impact;
+export const GROWTH_RATE=4.6,LEAF_UNFURL_RATE=1.8;
+export const MATURE_AT=GROW_AT+3.8;
+export const COMPOSE_AT=GROW_AT+.18,COMPOSE_DURATION=2.4;
+export const LEAF_FALL_PERIOD=44,LEAF_FALL_COUNT=78;
 export const branchProgress=(b,time)=>ease((time-b.born)/b.duration);
 function inverseEase(value){let a=0,b=1;for(let i=0;i<28;i++){const m=(a+b)/2;if(ease(m)<value)a=m;else b=m;}return(a+b)/2;}
 export function pointOn(b,t){const u=1-t;return{x:u**3*b.a.x+3*u*u*t*b.b.x+3*u*t*t*b.c.x+t**3*b.d.x,y:u**3*b.a.y+3*u*u*t*b.b.y+3*u*t*t*b.c.y+t**3*b.d.y};}
@@ -102,6 +104,9 @@ export function createTree(seed=2811){
     const p=pointOn(b,t);
     if(within(p,.015))leaf(p.x,p.y,{branch:b,t},5.8+rng()*2.5);
   }
+  // The whole skeleton keeps its connected growth order at a much faster pace.
+  for(const b of branches){b.born/=GROWTH_RATE;b.duration/=GROWTH_RATE;}
+  for(const l of leaves){l.born/=GROWTH_RATE;l.duration/=LEAF_UNFURL_RATE;}
   leaves.sort((a,b)=>a.depth-b.depth);
   for(const b of branches)for(const p of[b.a,b.b,b.c,b.d])p.y*=stretch;
   for(const l of leaves)l.y*=stretch;
