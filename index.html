@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06080e">
+  <meta name="description" content="Стихотворение о поиске, расстоянии и встрече. Живые символьные иллюстрации и тихая музыка.">
+  <title>Самый тихий свет</title>
+  <link rel="icon" href="./assets/light.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+  <main class="experience" aria-label="Самый тихий свет — иллюстрированное стихотворение">
+    <canvas id="world" role="img" aria-label="Символьная история: свет в тумане, дыхание на расстоянии, рассвет и весна" aria-describedby="instructions"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="verses" id="verses">
+      <article class="stanza" data-stanza="0">
+        <p>Тебя найду я в тишине иллюзий</p>
+        <p>И в тайной, но живой мечте —</p>
+        <p>Без лишних слов, намёков и аллюзий,</p>
+        <p>По свету в полной темноте.</p>
+      </article>
+      <article class="stanza" data-stanza="1">
+        <p>Пускай меж нами вёрсты и молчанье,</p>
+        <p>И ночь скрывает силуэт,</p>
+        <p>Я сберегу в душе твоё дыханье,</p>
+        <p>Как самый тихий в мире свет.</p>
+      </article>
+      <article class="stanza" data-stanza="2">
+        <p>И если сон растает на рассвете,</p>
+        <p>Оставив в сердце тишину,</p>
+        <p>Я отыщу тебя на белом свете,</p>
+        <p>Чтоб разделить с тобой весну.</p>
+      </article>
+    </div>
+    <div class="sound-controls" id="sound-controls" hidden>
+      <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">
+        <span class="sound-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span id="sound-label">Включи музыку</span>
+      </button>
+      <button class="hide-controls" id="hide-controls" type="button" aria-label="Скрыть кнопку музыки. Коснитесь иллюстрации, чтобы вернуть её">×</button>
+    </div>
+    <p class="sr-only" id="instructions">Музыка включается кнопкой. Клавиша M управляет музыкой, пробел ставит анимацию на паузу, Enter начинает заново. Если кнопка скрыта, коснитесь иллюстрации, чтобы вернуть её. При уменьшенном движении весь стих показан сразу.</p>
+    <p class="sr-only" id="sound-status" role="status"></p>
+  </main>
+  <noscript><style>.sound-controls{display:none!important}</style></noscript>
+  <script type="module" src="./assets/app.js"></script>
+</body>
+</html>

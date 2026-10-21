@@ -1,0 +1,52 @@
+:root { color-scheme: dark; --ink: #eee9e1; --warmth: 0; font-family: Georgia, 'Times New Roman', serif; background: #06080e; }
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body { color: var(--ink); }
+button { font: inherit; -webkit-tap-highlight-color: transparent; }
+.experience { position: relative; min-height: 100svh; overflow: hidden; isolation: isolate; }
+#world { position: fixed; inset: 0; width: 100%; height: 100%; display: block; opacity: .65; }
+.vignette { pointer-events: none; position: fixed; inset: 0; background: radial-gradient(ellipse at 32% 46%, transparent 18%, #06080e18 60%, #06080e99 100%); }
+.verses { position: relative; width: min(90%, 750px); margin: 0 auto; padding: 12svh 0 9svh; }
+.stanza { margin-bottom: 3em; }
+.stanza p { margin: 0; font-size: clamp(18px, 2vw, 28px); line-height: 1.95; font-weight: 400; letter-spacing: .005em; }
+.ready { overflow: hidden; }
+.ready .experience { height: 100svh; min-height: 0; }
+.ready #world { opacity: 1; }
+.ready .verses { position: absolute; display: grid; align-items: center; inset: 0 3vw 0 53vw; width: auto; margin: 0; padding: 0; }
+.ready .stanza { grid-area: 1 / 1; margin: 0; opacity: 0; pointer-events: none; }
+.ready .stanza p { font-size: clamp(18px, 1.78vw, 28px); line-height: 1.95; opacity: 0; transform: translateY(8px); text-shadow: 0 2px 25px #05070ef0; }
+.ready .stanza[data-current="true"] { pointer-events: auto; }
+.sound-controls { position: fixed; z-index: 3; top: max(20px, env(safe-area-inset-top)); right: max(22px, env(safe-area-inset-right)); display: flex; align-items: center; border: 1px solid #b7c5d023; border-radius: 28px; background: #080d16b8; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.sound-controls[hidden] { display: none; }
+.sound-toggle, .hide-controls { color: #e6e3df; border: 0; background: none; cursor: pointer; min-height: 44px; }
+.sound-toggle { display: inline-flex; gap: 11px; align-items: center; padding: 0 13px 0 17px; font: 12px/1.2 system-ui, sans-serif; letter-spacing: .035em; }
+.hide-controls { width: 42px; font: 21px/1 system-ui, sans-serif; color: #a0a5b2; border-left: 1px solid #b7c5d019; }
+button:hover { color: #fff; }
+button:focus-visible { outline: 2px solid #eac997; outline-offset: 5px; border-radius: 24px; }
+.sound-icon { display: flex; align-items: center; gap: 2px; width: 15px; height: 16px; }
+.sound-icon i { display: block; width: 2px; height: 4px; background: currentColor; border-radius: 2px; }
+.sound-icon i:nth-child(2) { height: 11px; }.sound-icon i:nth-child(3) { height: 7px; }.sound-icon i:nth-child(4) { height: 13px; }
+[aria-pressed="true"] .sound-icon i { animation: listening 1.5s ease-in-out infinite alternate; }
+[aria-pressed="true"] .sound-icon i:nth-child(2) { animation-delay: -.5s; }[aria-pressed="true"] .sound-icon i:nth-child(3) { animation-delay: -.9s; }
+@keyframes listening { to { transform: scaleY(.35); } }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-aspect-ratio: 5/4) {
+  .ready .verses { inset: 58% 5% max(5%, env(safe-area-inset-bottom)) 5%; align-items: start; text-align: center; }
+  .ready .stanza { width: 100%; }
+  .ready .stanza p { font-size: clamp(16px, 4.25vw, 25px); line-height: 1.9; }
+  .vignette { background: linear-gradient(transparent 40%, #06080e75 58%, #06080eeb 88%), radial-gradient(ellipse at 50% 30%, transparent 20%, #06080e80 95%); }
+  .sound-controls { top: max(14px, env(safe-area-inset-top)); right: 14px; }
+}
+@media (min-aspect-ratio: 5/4) and (max-height: 520px) {
+  .ready .verses { inset: 5% 3% 5% 49%; }
+  .ready .stanza p { font-size: clamp(13px, 2.15vw, 20px); line-height: 1.9; }
+  .sound-controls { top: 10px; right: 12px; }.sound-toggle { font-size: 11px; min-height: 40px; }.hide-controls { min-height: 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sound-icon i { animation: none!important; }
+}
+.still .experience { min-height: 100svh; }
+.still #world { opacity: .42; }
+.still .verses { position: relative; display: block; inset: auto; width: min(90%, 760px); margin: 0 auto; padding: max(100px, 14svh) 0 8svh; }
+.still .stanza { opacity: 1!important; margin-bottom: 3em; }
+.still .stanza p { opacity: 1!important; transform: none!important; font-size: clamp(17px, 2.3vw, 25px); line-height: 1.85; }
