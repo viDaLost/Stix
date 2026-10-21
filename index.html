@@ -3,47 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#06080e">
-  <meta name="description" content="Стихотворение о поиске, расстоянии и встрече. Живые символьные иллюстрации и тихая музыка.">
-  <title>Самый тихий свет</title>
-  <link rel="icon" href="./assets/light.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/style.css">
+  <meta name="theme-color" content="#f6efe5">
+  <meta name="description" content="Одно маленькое сердце. Целое дерево любви. Открой открытку и коснись сердца.">
+  <title>Из одного сердца</title>
+  <link rel="icon" href="./assets/heart.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/tree.css">
 </head>
 <body>
-  <main class="experience" aria-label="Самый тихий свет — иллюстрированное стихотворение">
-    <canvas id="world" role="img" aria-label="Символьная история: свет в тумане, дыхание на расстоянии, рассвет и весна" aria-describedby="instructions"></canvas>
-    <div class="vignette" aria-hidden="true"></div>
-    <div class="verses" id="verses">
-      <article class="stanza" data-stanza="0">
-        <p>Тебя найду я в тишине иллюзий</p>
-        <p>И в тайной, но живой мечте —</p>
-        <p>Без лишних слов, намёков и аллюзий,</p>
-        <p>По свету в полной темноте.</p>
-      </article>
-      <article class="stanza" data-stanza="1">
-        <p>Пускай меж нами вёрсты и молчанье,</p>
-        <p>И ночь скрывает силуэт,</p>
-        <p>Я сберегу в душе твоё дыханье,</p>
-        <p>Как самый тихий в мире свет.</p>
-      </article>
-      <article class="stanza" data-stanza="2">
-        <p>И если сон растает на рассвете,</p>
-        <p>Оставив в сердце тишину,</p>
-        <p>Я отыщу тебя на белом свете,</p>
-        <p>Чтоб разделить с тобой весну.</p>
-      </article>
+  <main id="card" class="card" tabindex="-1" aria-label="Из одного сердца — живая открытка">
+    <canvas id="garden" aria-hidden="true"></canvas>
+    <button id="seed" class="seed" type="button" aria-label="Нажми — вырастить дерево любви">
+      <span class="invitation">Нажми</span>
+      <svg class="seed-heart" viewBox="-1.2 -1.2 2.4 2.4" aria-hidden="true">
+        <defs><linearGradient id="ruby" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ed657b"/><stop offset=".46" stop-color="#d83b5b"/><stop offset="1" stop-color="#ae2345"/></linearGradient></defs>
+        <path fill="url(#ruby)" d="M0 .85C-.18 .69-1 .13-1-.36C-1-.96-.25-1.04 0-.48C.25-1.04 1-.96 1-.36C1 .13.18 .69 0 .85Z"/>
+      </svg>
+    </button>
+    <div id="controls" class="controls" hidden>
+      <button id="pause" type="button" aria-label="Приостановить анимацию" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="pause-icon" d="M9 6v12M15 6v12"/></svg></button>
+      <button id="replay" type="button" aria-label="Повторить открытку"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9a7.5 7.5 0 1 1-.2 5M5 4v5h5"/></svg></button>
     </div>
-    <div class="sound-controls" id="sound-controls" hidden>
-      <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="false">
-        <span class="sound-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-        <span id="sound-label">Включи музыку</span>
-      </button>
-      <button class="hide-controls" id="hide-controls" type="button" aria-label="Скрыть кнопку музыки. Коснитесь иллюстрации, чтобы вернуть её">×</button>
-    </div>
-    <p class="sr-only" id="instructions">Музыка включается кнопкой. Клавиша M управляет музыкой, пробел ставит анимацию на паузу, Enter начинает заново. Если кнопка скрыта, коснитесь иллюстрации, чтобы вернуть её. При уменьшенном движении весь стих показан сразу.</p>
-    <p class="sr-only" id="sound-status" role="status"></p>
+    <p id="status" class="sr-only" role="status" aria-live="polite">Нажмите на сердце, чтобы вырастить дерево с розовыми и красными листьями-сердечками.</p>
+    <noscript><p class="no-script">Чтобы сердце превратилось в дерево, включите JavaScript.</p></noscript>
   </main>
-  <noscript><style>.sound-controls{display:none!important}</style></noscript>
-  <script type="module" src="./assets/app.js"></script>
+  <script type="module" src="./assets/tree-app.js"></script>
 </body>
 </html>
+
