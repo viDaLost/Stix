@@ -27,3 +27,43 @@ button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-c
 @keyframes aura { 0%, 45%, 100% { transform: scale(.92); opacity: .5; } 20% { transform: scale(1.15); opacity: 1; } }
 @keyframes arrive { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none!important; transition: none!important; } }
+
+/* The tree makes room for the poem as the postcard opens. */
+.card { height: 100svh; }
+.poem { position: absolute; z-index: 2; left: 52%; right: 4%; top: 50%; transform: translateY(-50%); color: #77594f; text-align: center; }
+.poem[hidden] { display: none; }
+.poem-ornament { display: block; width: 78px; height: 18px; margin: 0 auto 24px; fill: none; stroke: #c69b91; stroke-width: .8; }
+.poem-ornament .ornament-heart { fill: #c07885; stroke: none; opacity: .6; }
+.postcard-stanzas { display: grid; }
+.postcard-stanza { grid-area: 1 / 1; margin: 0; }
+.postcard-stanza[aria-hidden="true"] { pointer-events: none; user-select: none; }
+.postcard-stanza p { margin: 0; opacity: 0; font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif; font-size: clamp(18px, 1.9vw, 28px); font-weight: 400; line-height: 1.92; letter-spacing: .005em; white-space: nowrap; will-change: opacity, transform; }
+.poem-pages { display: flex; justify-content: center; align-items: center; gap: 1px; margin-top: 22px; }
+.poem-pages button { width: 38px; height: 44px; padding: 0; border: 0; background: none; border-radius: 22px; display: grid; place-items: center; }
+.poem-pages span { width: 5px; height: 5px; border: 1px solid #c9aaa0; border-radius: 50%; background: transparent; transition: background .4s ease, border-color .4s ease, transform .4s ease; }
+.poem-pages [aria-pressed="true"] span { background: #b76c7d; border-color: #b76c7d; transform: scale(1.28); }
+.poem-pages button:hover span { border-color: #a75c71; }
+.poem-pages button:focus-visible { outline: 1px solid #b76c7d; outline-offset: 0; }
+@media (max-aspect-ratio: 6/5) {
+  .poem { left: 16px; right: 16px; top: 62%; transform: none; }
+  .poem-ornament { width: 64px; height: 14px; margin-bottom: 16px; }
+  .postcard-stanza p { font-size: clamp(15px, 4.25vw, 21px); line-height: 1.88; }
+  .poem-pages { margin-top: 12px; }
+}
+@media (min-aspect-ratio: 6/5) and (max-height: 540px) {
+  .poem-ornament { margin-bottom: 12px; width: 64px; }
+  .postcard-stanza p { font-size: clamp(15px, 2.2vw, 21px); line-height: 1.8; }
+  .poem-pages { margin-top: 8px; }
+  .controls { bottom: 8px; right: 10px; }
+}
+@media (max-width: 360px) {
+  .poem { left: 10px; right: 10px; }
+  .postcard-stanza p { font-size: 14.5px; }
+}
+@media (max-aspect-ratio: 6/5) and (max-height: 650px) {
+  .poem { top: 61%; }
+  .poem-ornament { margin-bottom: 9px; height: 12px; }
+  .postcard-stanza p { font-size: clamp(14.5px, 4.1vw, 17px); line-height: 1.75; }
+  .poem-pages { margin-top: 5px; }
+  .controls { bottom: max(8px, env(safe-area-inset-bottom)); }
+}

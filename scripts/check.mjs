@@ -2,7 +2,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import { POEM, LINE_TIMES, DURATION } from '../assets/story.js';
 const pages = await Promise.all(['index.html','poem.html'].map(file=>readFile(new URL(`../${file}`,import.meta.url),'utf8')));
-for (const line of POEM.flat()) if (!pages[1].includes(`<p>${line}</p>`)) throw new Error(`Poem text differs: ${line}`);
+for (const html of pages) for (const line of POEM.flat()) if (!html.includes(`<p>${line}</p>`)) throw new Error(`Poem text differs: ${line}`);
 if (LINE_TIMES.length !== 12 || LINE_TIMES.at(-1) + 8 > DURATION) throw new Error('Insufficient reading time');
 for (const file of await readdir(new URL('../assets/',import.meta.url))) {
   if (!file.endsWith('.js')) continue;

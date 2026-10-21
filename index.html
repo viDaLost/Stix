@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f6efe5">
-  <meta name="description" content="Одно маленькое сердце. Целое дерево любви. Открой открытку и коснись сердца.">
+  <meta name="description" content="Одно маленькое сердце, дерево любви и стихотворение «Тебя найду я в тишине иллюзий».">
   <title>Из одного сердца</title>
   <link rel="icon" href="./assets/heart.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/tree.css">
+  <link rel="stylesheet" href="./assets/tree.css?v=2.1.0">
 </head>
 <body>
   <main id="card" class="card" tabindex="-1" aria-label="Из одного сердца — живая открытка">
@@ -19,6 +19,34 @@
         <path fill="url(#ruby)" d="M0 .85C-.18 .69-1 .13-1-.36C-1-.96-.25-1.04 0-.48C.25-1.04 1-.96 1-.36C1 .13.18 .69 0 .85Z"/>
       </svg>
     </button>
+    <section id="poem" class="poem" aria-label="Стихотворение" hidden>
+      <svg class="poem-ornament" viewBox="0 0 92 18" aria-hidden="true"><path d="M1 9h27m36 0h27"/><path class="ornament-heart" d="M46 14c-3-2-8-6-8-9 0-4 6-5 8-1 2-4 8-3 8 1 0 3-5 7-8 9Z"/></svg>
+      <div class="postcard-stanzas">
+        <article class="postcard-stanza" aria-label="Первая строфа">
+          <p>Тебя найду я в тишине иллюзий</p>
+          <p>И в тайной, но живой мечте —</p>
+          <p>Без лишних слов, намёков и аллюзий,</p>
+          <p>По свету в полной темноте.</p>
+        </article>
+        <article class="postcard-stanza" aria-label="Вторая строфа" aria-hidden="true">
+          <p>Пускай меж нами вёрсты и молчанье,</p>
+          <p>И ночь скрывает силуэт,</p>
+          <p>Я сберегу в душе твоё дыханье,</p>
+          <p>Как самый тихий в мире свет.</p>
+        </article>
+        <article class="postcard-stanza" aria-label="Третья строфа" aria-hidden="true">
+          <p>И если сон растает на рассвете,</p>
+          <p>Оставив в сердце тишину,</p>
+          <p>Я отыщу тебя на белом свете,</p>
+          <p>Чтоб разделить с тобой весну.</p>
+        </article>
+      </div>
+      <nav class="poem-pages" aria-label="Выбрать строфу">
+        <button type="button" data-verse="0" aria-label="Первая строфа" aria-pressed="true"><span aria-hidden="true"></span></button>
+        <button type="button" data-verse="1" aria-label="Вторая строфа" aria-pressed="false"><span aria-hidden="true"></span></button>
+        <button type="button" data-verse="2" aria-label="Третья строфа" aria-pressed="false"><span aria-hidden="true"></span></button>
+      </nav>
+    </section>
     <div id="controls" class="controls" hidden>
       <button id="pause" type="button" aria-label="Приостановить анимацию" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="pause-icon" d="M9 6v12M15 6v12"/></svg></button>
       <button id="replay" type="button" aria-label="Повторить открытку"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9a7.5 7.5 0 1 1-.2 5M5 4v5h5"/></svg></button>
@@ -26,7 +54,6 @@
     <p id="status" class="sr-only" role="status" aria-live="polite">Нажмите на сердце, чтобы вырастить дерево с розовыми и красными листьями-сердечками.</p>
     <noscript><p class="no-script">Чтобы сердце превратилось в дерево, включите JavaScript.</p></noscript>
   </main>
-  <script type="module" src="./assets/tree-app.js"></script>
+  <script type="module" src="./assets/tree-app.js?v=2.1.0"></script>
 </body>
 </html>
-
